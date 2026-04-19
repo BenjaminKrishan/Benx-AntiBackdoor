@@ -92,7 +92,7 @@ The whitelist system uses a multi-stage saving process (Atomic Write) with backu
 <p align="center">
   <strong>📦 Ready to secure your server?</strong><br>
   <a href="https://benx.tebex.io/category/scripts">
-    <img src="https://img.shields.io/badge/Buy%20Now%20on%20Tebex-%2420.00-important?style=for-the-badge&logo=tebex" alt="Buy on Tebex">
+    <img src="https://img.shields.io/badge/Buy%20Now%20on%20Tebex-%2415.00-important?style=for-the-badge&logo=tebex" alt="Buy on Tebex">
   </a>
 </p>
 
