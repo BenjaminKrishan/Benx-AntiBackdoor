@@ -1,6 +1,6 @@
 # 🛡️ BenX Anti-Backdoor - Hardened Edition v1.1.0
 
-> *The ultimate security solution for FiveM (Qbox/FXServer). Stop backdoors before they stop your server.*
+> *The ultimate security solution for FiveM (FXServer). Stop backdoors before they stop your server.*
 
 <p align="center">
   <a href="https://benx.tebex.io/category/scripts">
@@ -33,35 +33,61 @@ Many free or leaked scripts contain hidden **PerformHttpRequest** backdoors and 
    ```
 4. **Permissions**: Ensure the resource can stop other resources if `AutoStopInfected` is enabled in `config.lua`.
 
+---
+
 ## 🛠 Features
-🧬 **Structural Code Analysis**: Scans for `PerformHttpRequest` + `load` combos.
 
-🔓 **De-Obfuscation Engine**: Automatically decodes Base64 and Hex strings to reveal hidden code.
+### 🧬 Structural Code Analysis
+The engine scans for dangerous patterns like `PerformHttpRequest` linked to `load` or `assert` commands. It checks for common RCE (Remote Code Execution) vectors and data theft patterns (RCON passwords, License Keys).
 
-📊 **Deep Entropy Scanning**: Detects "binary-looking" Lua code (strong indicator of malware).
+### 🔓 De-Obfuscation Engine
+Malicious code is often hidden in **Base64** or **Hex**. Our scanner identifies these strings and decodes them in memory to analyze the *actual* intent of the code.
 
-⏰ **Scheduled Scans**: Set automatic full-server scans at specific times (UTC/Local).
+### 📊 Deep Entropy Scanning
+By calculating Shannon Entropy, the script detects "random" or "binary-looking" Lua code. High entropy is a primary indicator of obfuscated malware that traditional regex-based scanners miss.
 
-💾 **Atomic Persistence**: Crash-proof whitelist database system.
+### 💾 Atomic Persistence
+The whitelist system uses a multi-stage saving process (Atomic Write) with backups to ensure your whitelist database never corrupts during a server crash.
 
-🔎 **Signature Checks**: `/checkscan` to find known malicious fingerprints instantly.
+---
 
-## 📋 Commands (Console/RCON Only)
-| Command | Description |
-|---------|-------------|
-| `/scan` | Full server behavioral scan |
-| `/scan <name>` | Scan a specific resource |
-| `/checkscan` | Signature-based check for known malware |
-| `/whitelist <name>` | Exclude a safe resource from scans |
-| `/whitelist remove <name>` | Remove from whitelist |
-| `/benxstatus` | Show scan history and system status |
-| `/benxhelp` | List all commands |
+## 📋 Comprehensive Command List
+*All commands must be executed from the Server Console or RCON.*
+
+| Command | Sub-arguments | Description |
+|---------|---------------|-------------|
+| `/scan` | `[resource]` | Runs a full system scan. If a resource name is provided, only that resource is scanned. |
+| `/checkscan` | - | Performs a signature-based check for known bad file fingerprints in active memory. |
+| `/whitelist` | `all` | Whitelists all currently started resources (useful for initial setup). |
+| `/whitelist` | `<name>` | Manually whitelists a specific resource by its folder name. |
+| `/whitelist` | `remove <name>` | Removes a resource from the whitelist. |
+| `/whitelist` | `update <name>` | Re-calculates fingerprints for a whitelisted resource (use after updating a script). |
+| `/whitelist` | `clear confirm`| Completely resets the whitelist database. |
+| `/benxstatus` | - | Displays the overall health of the security system, active threats, and last scan time. |
+| `/listbackdoors`| - | Shows detailed technical descriptions for all currently detected threats. |
+| `/benxhelp` | - | Lists all available commands with brief descriptions. |
+
+---
+
+## ⚙️ Configuration Guide (`config.lua`)
+
+| Key | Default | Description |
+|-----|---------|-------------|
+| `Config.ScanOnStart` | `true` | Runs a full scan immediately when the server starts. |
+| `Config.ScanOnResourceStart` | `true` | Automatically scans any new resource when it is started. |
+| `Config.AutoStopInfected` | `true` | If a **CRITICAL** threat is found, the resource is stopped instantly. |
+| `Config.MonitorIntervalMin` | `5` | How often (in minutes) the script monitors files for changes after the server is up. |
+| `Config.EntropyThreshold` | `7.2` | Sensitivity of the entropy scanner. Higher = less sensitive, lower = more sensitive. |
+| `Config.UseUTC` | `true` | Use UTC for scheduled scans. Set to `false` for local server time. |
+| `Config.ScheduledScans` | - | Configure automatic scans at specific times (e.g., `{"03:00", "15:00"}`). |
+
+---
 
 ## 🔄 Recent Updates (v1.1.0)
 - **Webhook Security**: Moved Discord Webhook to Convar storage.
 - **De-obfuscation**: Added Base64 and Hex decoders to scanning engine.
-- **Performance**: Optimized entropy sampling for large files.
-- **Namespace Safety**: Prefixed globals to prevent conflicts.
+- **Performance**: Optimized entropy sampling for large files and added thread yielding to prevent server lag.
+- **Namespace Safety**: Prefixed globals and localized core functions.
 
 <p align="center">
   <strong>📦 Ready to secure your server?</strong><br>
