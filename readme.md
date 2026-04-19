@@ -1,4 +1,4 @@
-# 🛡️ BenX Anti-Backdoor - Hardened Edition v1.1.0
+# 🛡️ BenX Anti-Backdoor - Hardened Edition
 
 > *The ultimate security solution for FiveM (FXServer). Stop backdoors before they stop your server.*
 
