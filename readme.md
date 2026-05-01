@@ -7,7 +7,7 @@
     <img src="https://img.shields.io/badge/Buy%20Now-Tebex-blue?style=for-the-badge&logo=checkmarx" alt="Purchase on Tebex">
   </a>
   <a href="#-features">
-    <img src="https://img.shields.io/badge/Version-1.1.0-green?style=for-the-badge" alt="Version">
+    <img src="https://img.shields.io/badge/Version-1.0-green?style=for-the-badge" alt="Version">
   </a>
 </p>
 
@@ -82,12 +82,6 @@ The whitelist system uses a multi-stage saving process (Atomic Write) with backu
 | `Config.ScheduledScans` | - | Configure automatic scans at specific times (e.g., `{"03:00", "15:00"}`). |
 
 ---
-
-## 🔄 Recent Updates (v1.1.0)
-- **Webhook Security**: Moved Discord Webhook to Convar storage.
-- **De-obfuscation**: Added Base64 and Hex decoders to scanning engine.
-- **Performance**: Optimized entropy sampling for large files and added thread yielding to prevent server lag.
-- **Namespace Safety**: Prefixed globals and localized core functions.
 
 <p align="center">
   <strong>📦 Ready to secure your server?</strong><br>
